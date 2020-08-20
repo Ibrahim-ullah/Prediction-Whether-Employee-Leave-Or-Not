@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Entertainment Booking Form</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <style>
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, select, textarea, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      color: #666;
+      line-height: 22px;
+      }
+      h1 {
+      position: absolute;
+      margin: 0;
+      font-size: 32px;
+      color: #fff;
+      z-index: 2;
+      }
+      .testbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 20px;
+      }
+      form {
+      width: 100%;
+      padding: 20px;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 0 20px 0 #a82877; 
+      }
+      .banner {
+      position: relative;
+      height: 210px;
+      background-image: url("/uploads/media/default/0001/02/8ca4045044162379597641472fa0bb5489ba418f.jpeg");      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      }
+      .banner::after {
+      content: "";
+      background-color: rgba(0, 0, 0, 0.5); 
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      }
+      input, textarea, select {
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      }
+      input {
+      width: calc(100% - 10px);
+      padding: 5px;
+      }
+      select {
+      width: 100%;
+      padding: 7px 0;
+      background: transparent;
+      }
+      textarea {
+      width: calc(100% - 12px);
+      padding: 5px;
+      }
+      .item:hover p, .item:hover i, .question:hover p, .question label:hover, input:hover::placeholder {
+      color: #a82877;
+      }
+      .item input:hover, .item select:hover, .item textarea:hover {
+      border: 1px solid transparent;
+      box-shadow: 0 0 6px 0 #a82877;
+      color: #a82877;
+      }
+      .item {
+      position: relative;
+      margin: 10px 0;
+      }
+      input[type="date"]::-webkit-inner-spin-button {
+      display: none;
+      }
+      .item i, input[type="date"]::-webkit-calendar-picker-indicator {
+      position: absolute;
+      font-size: 20px;
+      color: #a9a9a9;
+      }
+      .item i {
+      right: 1%;
+      top: 30px;
+      z-index: 1;
+      }
+      [type="date"]::-webkit-calendar-picker-indicator {
+      right: 0;
+      z-index: 2;
+      opacity: 0;
+      cursor: pointer;
+      }
+      input[type="time"]::-webkit-inner-spin-button {
+      margin: 2px 22px 0 0;
+      }
+      input[type=radio], input.other {
+      display: none;
+      }
+      label.radio {
+      position: relative;
+      display: inline-block;
+      margin: 5px 20px 10px 0;
+      cursor: pointer;
+      }
+      .question span {
+      margin-left: 30px;
+      }
+      label.radio:before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 0;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      }
+      #radio_5:checked ~ input.other {
+      display: block;
+      }
+      input[type=radio]:checked + label.radio:before {
+      border: 2px solid #a82877;
+      background: #a82877;
+      }
+      label.radio:after {
+      content: "";
+      position: absolute;
+      top: 7px;
+      left: 5px;
+      width: 7px;
+      height: 4px;
+      border: 3px solid #fff;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+      opacity: 0;
+      }
+      input[type=radio]:checked + label:after {
+      opacity: 1;
+      }
+      .btn-block {
+      margin-top: 10px;
+      text-align: center;
+      }
+      button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px; 
+      background: #a82877;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background: #bf1e81;
+      }
+      @media (min-width: 568px) {
+      .name-item, .city-item {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      }
+      .name-item input, .city-item input {
+      width: calc(50% - 20px);
+      }
+      .city-item select {
+      width: calc(50% - 8px);
+      }
+      }
+
+/* Popup box BEGIN */
+.hover_bkgr_fricc{
+    background:rgba(0,0,0,.4);
+    cursor:pointer;
+    display:none;
+    height:100%;
+    position:fixed;
+    text-align:center;
+    top:0;
+    width:100%;
+    z-index:10000;
+}
+.hover_bkgr_fricc .helper{
+    display:inline-block;
+    height:100%;
+    vertical-align:middle;
+}
+.hover_bkgr_fricc > div {
+    background-color: #fff;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    height: auto;
+    max-width: 551px;
+    min-height: 100px;
+    vertical-align: middle;
+    width: 60%;
+    position: relative;
+    border-radius: 8px;
+    padding: 15px 5%;
+}
+.popupCloseButton {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+.popupCloseButton:hover {
+    background-color: #ccc;
+}
+.trigger_popup_fricc {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 20px;
+    display: inline-block;
+    font-weight: bold;
+}
+/* Popup box BEGIN */
+    </style>
+  </head>
+  <body>
+    <div class="testbox">
+      <form action="{{ url_for('predict')}}"method="post">
+        <div class="banner">
+          <h1>Predict whether your employee will leave you or not</h1>
+        </div>
+     
+	<br>
+	<br>
+
+	
+	
+	 <div class="age">
+          <p>Satisfaction level</p>
+          <input type="text" name="satisfaction_level" placeholder="Type a value between 0 and 1"/>
+        </div>
+
+
+	
+	 <div class="age">
+            <p>Last Evaluation</p>
+          <input type="text" name="last_evaluation" placeholder="Type a value between 0 and 1"/>
+        </div>
+
+	
+	 <div class="age">
+           <p>Number of Projects</p>
+          <input type="text" name="number_project" placeholder="Type the number of projects you have completed"/>
+        </div>
+
+	
+	 <div class="age">
+        <p>Hours spend in a month in average</p>
+         <input type="text" name="average_montly_hours" placeholder="Type the number of hours you spend in one month"/>
+        </div>
+
+		
+	 <div class="age">
+            <p>Numbers of year in the company</p>
+          <input type="text" name="time_spend_company" placeholder="Type the number of years you have spended in the current company"/>
+        </div>
+
+	 <div class="age">
+          <p>Numbers of work accident</p>
+          <input type="text" name="Work_accident" placeholder="Type the number of work accidents"/>
+        </div>
+
+	 <div class="age">
+           <p>Numbers of promotions in last 5 years</p>
+          <input type="text" name="promotion_last_5years" placeholder="Type the number of promotions in last 5 years"/>
+        </div>
+
+	 <div class="age">
+          <p>Department you work </p>
+          <input type="text" name="department" placeholder="type a number based on following value.IT = 0,Random=1,Accounting=2,HR=3,Management=4,Marketing=4,Product Management=6,Sales=7,Support=8,Technical=9"/>
+        </div>
+
+	 <div class="age">
+            <p>Salary range of yours</p>
+          <input type="text" name="salary" placeholder="Type 1 for low salary ,2 for medium salary and 3 for high salary"/>
+        </div>
+          
+   
+	
+	  <button type="submit" >Predict</button>
+	
+    </form>
+
+	 
+   <br>
+   <br>
+  	
+        </div>
+
+	{{prediction_text}}
+	
+  </body>
+</html>
